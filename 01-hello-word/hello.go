@@ -6,9 +6,14 @@ const helloPrefix = "Hello, "
 
 // Hello returns a greeting
 func Hello(name string) string {
-    return  helloPrefix + name
+    
+    if name == "" {
+        name = "World"
+    }
+    
+	return helloPrefix + name
 }
 
 func main() {
-    fmt.Println(Hello("world"))
+	fmt.Println(Hello("world"))
 }
