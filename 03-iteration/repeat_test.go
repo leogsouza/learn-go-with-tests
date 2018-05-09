@@ -1,6 +1,9 @@
 package iteration
 
-import "testing"
+import (
+    "testing"
+    "fmt"
+)
 
 
 func TestRepeat(t *testing.T) {
