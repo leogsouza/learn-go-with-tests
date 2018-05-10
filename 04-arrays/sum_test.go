@@ -7,7 +7,7 @@ import (
 
 func TestSum(t *testing.T) {
 
-	t.Run("collection of 5 numbers", func(t *testing.T) {
+	t.Run("collection of any numbers", func(t *testing.T) {
 		numbers := []int{1, 2, 3, 4, 5}
 
 		got := Sum(numbers)
@@ -19,10 +19,10 @@ func TestSum(t *testing.T) {
 	})
 }
 
-func TestSumAll(t *testing.T) {
-	got := SumAll([]int{1, 2}, []int{3, 9})
+func TestSumAllTails(t *testing.T) {
+	got := SumAllTails([]int{1, 2}, []int{3, 9})
 
-	want := []int{3, 12}
+	want := []int{2, 9}
 
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v want %v", got, want)
