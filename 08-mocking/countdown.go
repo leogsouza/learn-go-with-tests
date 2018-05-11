@@ -1,14 +1,26 @@
-package countdown
+package main
 
 import (
 	"fmt"
 	"io"
+	"os"
+	"time"
 )
 
+const finalWord = "Go!"
+const countdownStart = 3
+
 func Countdown(out io.Writer) {
-	for i := 3; i > 0; i-- {
+	for i := countdownStart; i > 0; i-- {
+		time.Sleep(1 * time.Second)
 		fmt.Fprintln(out, i)
 
 	}
-	fmt.Fprint(out, "Go!")
+	time.Sleep(1 * time.Second)
+	fmt.Fprintln(out, finalWord)
+}
+
+func main() {
+
+	Countdown(os.Stdout)
 }
