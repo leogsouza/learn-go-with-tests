@@ -1,10 +1,22 @@
 package racer
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
+	"time"
+)
 
 func TestRacer(t *testing.T) {
-	slowURL := "https://www.coursera.org"
-	fastURL := "https://www.github.com"
+
+	slowServer := makeDelayedServer(20 * time.Millisecond)
+	fastServer := makeDelayedServer(0 * time.Millisecond)
+
+	defer fastServer.Close()
+	defer slowServer.Close()
+
+	slowURL := slowServer.URL
+	fastURL := fastServer.URL
 
 	want := fastURL
 	got := Racer(slowURL, fastURL)
@@ -12,4 +24,11 @@ func TestRacer(t *testing.T) {
 	if got != want {
 		t.Errorf("got '%s', want '%s'", got, want)
 	}
+}
+
+func makeDelayedServer(delay time.Duration) *httptest.Server {
+	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(delay)
+		w.WriteHeader(http.StatusOK)
+	}))
 }
